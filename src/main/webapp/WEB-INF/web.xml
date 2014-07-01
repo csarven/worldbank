@@ -5,6 +5,40 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
+    <context-param>
+        <param-name>http://processor.graphity.org/ontology#configLocation</param-name>
+        <param-value>WEB-INF/web.ttl</param-value>
+    </context-param>
+    <context-param>
+        <param-name>http://processor.graphity.org/ontology#ontologyPath</param-name>
+        <param-value>ontology</param-value>
+    </context-param>
+    <context-param>
+        <param-name>http://processor.graphity.org/ontology#ontologyLocation</param-name>
+        <param-value>info/270a/worldbank/ontology/sitemap.ttl</param-value>
+    </context-param>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <dependentWarExcludes>static/org/graphity/client/js/saxon-ce/**</dependentWarExcludes>
+                    <warSourceExcludes>prod/,dev/</warSourceExcludes>
+		    <overlays>
+                        <overlay>
+			    <groupId>org.graphity</groupId>
+			    <artifactId>client</artifactId>
+			</overlay>
+		    </overlays>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <filter>
         <filter-name>index</filter-name>
         <filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
@@ -13,4 +47,10 @@
             <param-value>org.graphity.client.ApplicationBase</param-value>
         </init-param>
     </filter>
+
+    <filter-mapping>
+        <filter-name>index</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
