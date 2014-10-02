@@ -1,0 +1,73 @@
+@base           <http://worldbank.270a.info/ontology> .
+
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:	<http://www.w3.org/2002/07/owl#> .
+@prefix lda:	<http://purl.org/linked-data/api/vocab#> .
+@prefix sp:	<http://spinrdf.org/sp#> .
+@prefix spin:	<http://spinrdf.org/spin#> .
+@prefix void:	<http://rdfs.org/ns/void#> .
+@prefix ldp:	<http://www.w3.org/ns/ldp#> .
+@prefix sioc:	<http://rdfs.org/sioc/ns#> .
+@prefix foaf:	<http://xmlns.com/foaf/0.1/> .
+@prefix gc:     <http://client.graphity.org/ontology#> .
+@prefix gp:	<http://processor.graphity.org/ontology#> .
+
+<#> a owl:Ontology ;
+    rdfs:label "WorldBank sitemap" ;
+    owl:imports gp:, gc:, foaf:, sioc:, sp:, spin:  .
+
+# RESOURCE CLASSES
+
+<#Resource> a owl:Class, gp:Template ;
+    rdfs:subClassOf foaf:Document, lda:ItemEndpoint ;
+    gp:uriTemplate "/{path: .*}" ;
+    spin:query gp:Describe ;
+    gp:limit 20 ;
+    # gp:cacheControl "public, no-transform, max-age=21600" ;
+    rdfs:label "Resource" ;
+    rdfs:comment "Catch-all resource class (template)" ;
+    rdfs:isDefinedBy <#> .
+
+<#ClassificationConceptSchemeDocument> a owl:Class, gp:Template ;
+    rdfs:subClassOf foaf:Document, lda:ItemEndpoint ;
+    gp:uriTemplate "/classification/{ConceptScheme}" ;
+    spin:query <#ConstructClassificationConceptScheme> ;
+    # gp:cacheControl "public, no-transform, max-age=21600" ;
+    rdfs:label "Classification document" ;
+    rdfs:isDefinedBy <#> .
+
+<#ClassificationConceptDocument> a owl:Class, gp:Template ;
+    rdfs:subClassOf foaf:Document, lda:ItemEndpoint ;
+    gp:uriTemplate "/classification/{ConceptScheme}/{Concept}" ;
+    spin:query <#ConstructClassificationConcept> ;
+    # gp:cacheControl "public, no-transform, max-age=21600" ;
+    rdfs:label "Classification document" ;
+    rdfs:isDefinedBy <#> .
+
+# QUERIES
+
+<#ConstructClassificationConceptScheme> a sp:Describe ;
+    sp:text """
+CONSTRUCT
+{
+    ?this ?p ?o
+}
+WHERE
+{
+    ?this ?p ?o
+}
+"""^^xsd:string .
+
+<#ConstructClassificationConcept> a sp:Describe ;
+    sp:text """
+CONSTRUCT
+{
+    ?this ?p ?o
+}
+WHERE
+{
+    ?this ?p ?o
+}
+"""^^xsd:string .

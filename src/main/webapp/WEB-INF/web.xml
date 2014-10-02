@@ -1,43 +1,31 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+    id="nxp-viewer-poc" version="3.0">
 
-<web-app>
     <display-name>WorldBank</display-name>
 
     <context-param>
-        <param-name>http://processor.graphity.org/ontology#configLocation</param-name>
-        <param-value>WEB-INF/web.ttl</param-value>
+        <param-name>http://www.w3.org/ns/sparql-service-description#endpoint</param-name>
+        <param-value>http://worldbank.270a.info/sparql</param-value>
+    </context-param>
+    <!--
+    <context-param>
+        <param-name>http://server.graphity.org/ontology#graphStore</param-name>
+        <param-value>http://worldbank.270a.info/service</param-value>
+    </context-param>
+    -->
+    <context-param>
+        <param-name>http://processor.graphity.org/ontology#ontology</param-name>
+        <param-value>http://worldbank.270a.info/ontology#</param-value>
     </context-param>
     <context-param>
-        <param-name>http://processor.graphity.org/ontology#ontologyPath</param-name>
-        <param-value>ontology</param-value>
-    </context-param>
-    <context-param>
-        <param-name>http://processor.graphity.org/ontology#ontologyLocation</param-name>
-        <param-value>info/270a/worldbank/ontology/sitemap.ttl</param-value>
+        <param-name>http://client.graphity.org/ontology#stylesheet</param-name>
+        <param-value>static/org/graphity/client/xsl/global-xhtml.xsl</param-value>
     </context-param>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <dependentWarExcludes>static/org/graphity/client/js/saxon-ce/**</dependentWarExcludes>
-                    <warSourceExcludes>prod/,dev/</warSourceExcludes>
-		    <overlays>
-                        <overlay>
-			    <groupId>org.graphity</groupId>
-			    <artifactId>client</artifactId>
-			</overlay>
-		    </overlays>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <filter>
         <filter-name>index</filter-name>
