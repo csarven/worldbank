@@ -20,7 +20,7 @@
 
 # RESOURCE CLASSES
 
-<#Resource> a owl:Class, gp:Template ;
+<#Document> a owl:Class, gp:Template ;
     rdfs:subClassOf foaf:Document, lda:ItemEndpoint ;
     gp:uriTemplate "/{path: .*}" ;
     spin:query gp:Describe ;
